@@ -28,11 +28,11 @@ const createUserFormSchema = z.object({
     .any()
     .refine((files) => !!files.item(0), "A imagem do perfil é obrigatória")
     .refine(
-      (files) => files.item(0)!.size <= MAX_FILE_SIZE,
+      (files) => files.length && files.item(0).size <= MAX_FILE_SIZE,
       "O arquivo precisa ter no máximo 5Mb"
     )
     .refine(
-      (files) => ACCEPTED_IMAGE_TYPES.includes(files.item(0)!.type),
+      (files) => files.length && ACCEPTED_IMAGE_TYPES.includes(files.item(0)!.type),
       "Formato de imagem inválido"
     )
     .transform((list) => list.item(0)!),
